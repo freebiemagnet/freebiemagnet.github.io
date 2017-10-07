@@ -1,16 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="mapstyle.css" />
+    <link rel="stylesheet" type="text/css" href="feel.css" />
   </head>
+
+  <!--Firebase-->
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-messaging.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDhZqFGc_RF8imWeAf6yaAvDJ78QiPC2Q8",
+      authDomain: "freebiemagnet-2d7f7.firebaseapp.com",
+      databaseURL: "https://freebiemagnet-2d7f7.firebaseio.com",
+      projectId: "freebiemagnet-2d7f7",
+      storageBucket: "freebiemagnet-2d7f7.appspot.com",
+      messagingSenderId: "691338972663"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  //start of website
   <body>
-    <h3>Freebie Magnet</h3>
+    <title>Freebie Magnet</title>
+
+    //location search bar
+    <div id="search"></div>
+    
+
+    //map
     <div id="map"></div>
     <script type="text/javascript" src="map.js"></script>
-	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiidRxTTIAOqvoCrmWHSJ-6RLL2xjKUk&callback=initMap">
-    </script>
+	  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiidRxTTIAOqvoCrmWHSJ-6RLL2xjKUk&callback=initMap"></script>
+
   </body>
 </html>
