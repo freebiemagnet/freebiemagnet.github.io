@@ -15,7 +15,7 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-
+		<link rel="stylesheet" type="text/css" href="mapstyle.css" />
 	</head>
 	<body>
 
@@ -61,33 +61,15 @@
 						<!-- First Section -->
 							<section id="first" class="main special">
 
-								<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for location..">
+								<input style="margin-bottom:2em"; type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for location..">
 
-								<header class="major">
-									<h2>Magna veroeros</h2>
-								</header>
-								<ul class="features">
-									<li>
-										<span class="icon major style1 fa-code"></span>
-										<h3>Ipsum consequat</h3>
-										<p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-									</li>
-									<li>
-										<span class="icon major style3 fa-copy"></span>
-										<h3>Amed sed feugiat</h3>
-										<p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-									</li>
-									<li>
-										<span class="icon major style5 fa-diamond"></span>
-										<h3>Dolor nullam</h3>
-										<p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-									</li>
-								</ul>
-								<footer class="major">
-									<ul class="actions">
-										<li><a href="generic.html" class="button">Learn More</a></li>
-									</ul>
-								</footer>
+								<div id="map"></div>
+							    <script type="text/javascript" src="map.js"></script>
+								<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+							    </script>
+							    <script async defer
+							    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiidRxTTIAOqvoCrmWHSJ-6RLL2xjKUk&callback=initMap">
+							    </script>
 							</section>
 
 						<!-- Second Section -->
