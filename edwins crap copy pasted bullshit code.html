@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>Modal Pop up Form</title>
+    <link rel="stylesheet" type="text/css" media="all" href="formstyle.css">
+    <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="assets/js/jquery.leanModal.min.js"></script>
+</head>
+
+<body>
+
+    <center><a href="#loginmodal" class="flatbtn" id="modaltrigger">Add new event!</a></center>
+    <div id="loginmodal" style="display:none;">
+        <h1>Adding new event</h1>
+        <form id="loginform" name="loginform" method="post" action="index.html">
+
+            <label for="company">Company Name</label>
+            <input type="text" name="company" id="company" class="txtfield" tabindex="1">
+
+            <label for="event">Event Name</label>
+            <input type="text" name="event" id="event" class="txtfield" tabindex="2">
+
+            <label for="date">Date</label>
+            <input type="text" name="date" id="date" class="txtfield" tabindex="3">
+
+            <label for="location">Location</label>
+            <input type="text" name="location" id="location" class="txtfield" tabindex="4">
+
+            <label for="tags">Tags</label>
+            <input type="text" name="tags" id="tags" class="txtfield" tabindex="5">
+
+            <label for="times">Time</label>
+            <input type="text" name="times" id="times" class="txtfield" tabindex="6">
+
+            <div class="center"><input type="submit" name="loginbtn" id="loginbtn" class="flatbtn-blu hidemodal" value="Add new event!" tabindex="7"></div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            $('#loginform').submit(function(e) {
+
+                var company = document.getElementById("company").value;
+                var event = document.getElementById("event").value;
+                var date = document.getElementById("date").value;
+                var location = document.getElementById("location").value;
+                var tags = document.getElementById("tags").value;
+                var times = document.getElementById("times").value;
+
+                var parent = "theedwin";
+
+                firebase.database().ref().child("all users").child(parent).push({
+
+                    [company]: {
+                        [event]: {
+                            "Date": date,
+                            "Location": location,
+                            "Tags": tags,
+                            "Time": times
+                        }
+                    }
+
+                });
+
+                return false;
+            });
+
+            $('#modaltrigger').leanModal({
+                top: 110,
+                overlay: 0.45,
+                closeButton: ".hidemodal"
+            });
+        });
+
+    </script>
+</body>
+
+</html>
