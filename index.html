@@ -136,7 +136,7 @@
 							<li><a href="about.html" class="button">Learn More</a></li>
 						</ul>
 					</div>
-					<span class="image"><img src="images/freestuff.gif" alt="" /></span>
+					<span class="image"><img src="images/free.gif" alt="" /></span>
 				</div>
 			</section>
 
@@ -175,7 +175,6 @@
 							anchorPoint: new google.maps.Point(0, -29)
 						});
 
-
 						autocomplete.addListener('place_changed', function() {
 
 							initMap();
@@ -203,6 +202,11 @@
 						updateEvents();
 						});
 
+						updateEvents();
+					}
+
+					function updateMapManual(){
+						initMap();
 						updateEvents();
 					}
 				</script>
@@ -287,6 +291,7 @@
 						var total = "<table>";
 						
 						function updateEvents() {
+<<<<<<< HEAD
 
 							function do_a(callback) {
 
@@ -338,6 +343,8 @@
 							do_a(function() {
 								do_b();
 							});
+=======
+>>>>>>> 7a237dafc780a73e18630346c016b5a9e1fccf9b
 						}
 					</script>
  -->
@@ -534,6 +541,8 @@
 
 			});
 
+			updateMapManual();
+			alert("Event added!");
 		}
 
 		firebase.auth().onAuthStateChanged(function(user) {
