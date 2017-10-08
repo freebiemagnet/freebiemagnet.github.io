@@ -199,6 +199,7 @@
 							marker.setVisible(true);
 <<<<<<< HEAD
 						});
+<<<<<<< HEAD
 					}
 =======
 						} ;
@@ -225,6 +226,14 @@
 					}
 
 >>>>>>> 36d14336db1b6aaee0caeab1202303ab6b81c01d
+=======
+<<<<<<< HEAD
+					}
+=======
+				}
+					
+>>>>>>> 2be67a1361f1b284372801deddfdb99c70efb05e
+>>>>>>> 34d8d67d0102a7dafeac723f27648617dc41655c
 				</script>
 				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3o57G1olSN-zpVPmq34BfcGqRVBEXZ3M&libraries=places&callback=initMap" async defer></script>
 			</section>
@@ -238,6 +247,7 @@
 					<p id="toChange">yes</p>
 
 					<script>
+<<<<<<< HEAD
 						var query = firebase.database().ref("all users").orderByKey();
 						query.once("value")
 						  .then(function(snapshot) {
@@ -253,6 +263,50 @@
 
 						  });
 						});
+=======
+						var total = "<table>";
+						var backup = "";
+						var hasLooped = false;
+
+						var query = firebase.database().ref("all users").orderByKey();
+						query.once("value")
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2be67a1361f1b284372801deddfdb99c70efb05e
+						  .then(function(snapshot) {
+						    snapshot.forEach(function(childSnapshot) {
+						    	total += "<tr>";
+						    	console.log("in");
+						    	// console.log(total);
+						    	backup = total;
+						    	hasLooped = true;
+						  });
+						});
+<<<<<<< HEAD
+
+						while(hasLooped){
+							console.log(backup + " bruh");
+						}
+=======
+						  // console.log(total);
+
+							.then(function(snapshot) {
+								snapshot.forEach(function(childSnapshot) {
+									childSnapshot.forEach(function(childSnapshot2) {
+										// key will be "ada" the first time and "alan" the second time
+										var key = childSnapshot2.key;
+										console.log(key);
+										// childData will be the actual contents of the child
+										var childData = childSnapshot2.val();
+										console.log(childData);
+									});
+
+								});
+							});
+
+>>>>>>> 2be67a1361f1b284372801deddfdb99c70efb05e
+>>>>>>> 34d8d67d0102a7dafeac723f27648617dc41655c
 					</script>
 
 					<footer class="major">
