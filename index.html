@@ -197,6 +197,8 @@
 							marker.setPosition(place.geometry.location);
 							marker.setVisible(true);
 						});
+
+						updateEvents();
 					}
 				</script>
 			</section>
@@ -210,21 +212,25 @@
 					<p id="toChange">yes</p>
 
 					<script>
-						var total = "<table>";
-						var backup = "";
-						var hasLooped = false;
+						function updateEvents() {
+							var total = "<table>";
+							var backup = "";
+							var hasLooped = false;
 
-						var query = firebase.database().ref("all users").orderByKey();
-						query.once("value")
-							.then(function(snapshot) {
-								snapshot.forEach(function(childSnapshot) {
-									total += "<tr>";
-									console.log("in");
-									// console.log(total);
-									backup = total;
-									hasLooped = true;
+							var query = firebase.database().ref("all users").orderByKey();
+							query.once("value")
+								.then(function(snapshot) {
+									snapshot.forEach(function(childSnapshot) {
+										total += "<tr>";
+										console.log("in");
+										// console.log(total);
+										backup = total;
+										hasLooped = true;
+									});
 								});
-							});
+
+							console.log(total);
+						}
 					</script>
 
 					<footer class="major">
@@ -238,25 +244,28 @@
 			<section id="cta" class="main special">
 				<header class="major">
 					<h2>Login</h2>
-					<p>Organizers: Login Below!</p>
+					<p id="logininfo" style: "display:block">Organizers: Login Below!</p>
 				</header>
 				<footer class="major">
 
-					<input id="email" type="email" class="validate">
-					<label for="email">Email</label>
+					<input id="email" type="email" class="validate" style: "display:block">
+					<label id="labelemail" for="email" style: "display:block">Email</label>
 					<br />
-					<input id="password" type="password" class="validate">
-					<label for="password">Password</label>
+
+					<label id="loggeduser" style: "display:none"></label>
+
+					<input id="password" type="password" class="validate" style: "display:block">
+					<label id="labelpassword" for="password" style: "display:block">Password</label>
 					<br />
 
 					<ul class="actions">
-						<li><button id="register" class="button special">Register</button></li>
-						<li><button id="signin" class="button special">Sign In</button></li>
+						<li><button id="register" class="button special" style: "display:block">Register</button></li>
+						<li><button id="signin" class="button special" style: "display:block">Sign In</button></li>
 					</ul>
 
 					<ul class="actions">
 						<li>
-						<button id="addevent" class="button hide" style="display:none">Add an Event</button>
+							<button id="addevent" class="button hide" style="display:none">Add an Event</button>
 						</li>
 					</ul>
 
@@ -323,6 +332,17 @@
 				alert("Welcome back.");
 
 				document.getElementById("addevent").style.display = "block";
+
+				document.getElementById("logininfo").style.display = "none";
+				document.getElementById("email").style.display = "none";
+				document.getElementById("labelemail").style.display = "none";
+				document.getElementById("password").style.display = "none";
+				document.getElementById("labelpassword").style.display = "none";
+				document.getElementById("register").style.display = "none";
+				document.getElementById("signin").style.display = "none";
+
+				document.getElementById("loggeduser").innerHTML = "Welcome, " + email;
+				document.getElementById("loggeduser").style.display = "block";
 			}
 		}
 
