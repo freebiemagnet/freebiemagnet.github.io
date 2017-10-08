@@ -179,28 +179,8 @@
 							anchorPoint: new google.maps.Point(0, -29)
 						});
 
-						autocomplete.addListener('place_changed', function() {
-<<<<<<< HEAD
-								marker.setVisible(false);
-								var place = autocomplete.getPlace();
-
-								if (!place.geometry) {
-									window.alert("No details available for input: '" + place.name + "'");
-									return;
-								}
-
-								// If the place has a geometry, then present it on a map.
-								if (place.geometry.viewport) {
-									map.fitBounds(place.geometry.viewport);
-								} else {
-									map.setCenter(place.geometry.location);
-									map.setZoom(17); // Why 17? Because it looks good.
-								}
-								marker.setPosition(place.geometry.location);
-								marker.setVisible(true);
-							});
-						}
-=======
+						autocomplete.addListener('place_changed', function() { <<
+							<< << < HEAD
 							marker.setVisible(false);
 							var place = autocomplete.getPlace();
 
@@ -219,8 +199,28 @@
 							marker.setPosition(place.geometry.location);
 							marker.setVisible(true);
 						});
+					} ===
+					=== =
+					marker.setVisible(false);
+					var place = autocomplete.getPlace();
+
+					if (!place.geometry) {
+						window.alert("No details available for input: '" + place.name + "'");
+						return;
 					}
->>>>>>> 393818d36a9d08daeaaa0c22c1700194a4b98d45
+
+					// If the place has a geometry, then present it on a map.
+					if (place.geometry.viewport) {
+						map.fitBounds(place.geometry.viewport);
+					} else {
+						map.setCenter(place.geometry.location);
+						map.setZoom(17); // Why 17? Because it looks good.
+					}
+					marker.setPosition(place.geometry.location);
+					marker.setVisible(true);
+					});
+					} >>>
+					>>> > 393818 d36a9d08daeaaa0c22c1700194a4b98d45
 				</script>
 				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3o57G1olSN-zpVPmq34BfcGqRVBEXZ3M&libraries=places&callback=initMap" async defer></script>
 			</section>
@@ -236,35 +236,35 @@
 					<script>
 						var query = firebase.database().ref("all users").orderByKey();
 						query.once("value")
-						  .then(function(snapshot) {
-						    snapshot.forEach(function(childSnapshot) {
+							.then(function(snapshot) {
+								snapshot.forEach(function(childSnapshot) {
 
-						  //   	var query2 = firebase.database().ref(childSnapshot.key).orderByKey();
-								// query2.once("value")
-								//   .then(function(snapshot2) {
-								//     snapshot2.forEach(function(childSnapshot2) {
+									//   	var query2 = firebase.database().ref(childSnapshot.key).orderByKey();
+									// query2.once("value")
+									//   .then(function(snapshot2) {
+									//     snapshot2.forEach(function(childSnapshot2) {
 
 
-								//       // key will be "ada" the first time and "alan" the second time
-								//       var key2 = childSnapshot2.key;
-								//       console.log(key2);
-								//       // childData will be the actual contents of the child
-								//       var childData = childSnapshot.val();
-								//       // console.log(childData);
-								//   });
-								// });
+									//       // key will be "ada" the first time and "alan" the second time
+									//       var key2 = childSnapshot2.key;
+									//       console.log(key2);
+									//       // childData will be the actual contents of the child
+									//       var childData = childSnapshot.val();
+									//       // console.log(childData);
+									//   });
+									// });
 
-						      // key will be "ada" the first time and "alan" the second time
-						      var key = childSnapshot.key;
-						      // console.log(key);
-						      // childData will be the actual contents of the child
-						      var childData = childSnapshot.val();
+									// key will be "ada" the first time and "alan" the second time
+									var key = childSnapshot.key;
+									// console.log(key);
+									// childData will be the actual contents of the child
+									var childData = childSnapshot.val();
 
-						      console.log(childData);
+									console.log(childData);
 
-						      // console.log(childData);
-						  });
-						});
+									// console.log(childData);
+								});
+							});
 					</script>
 
 					<footer class="major">
@@ -366,14 +366,14 @@
 			});
 		}
 
-		var signin = function(email,password) {
-		firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  console.error(errorCode, errorMessage)
-});
-}
+		var signin = function(email, password) {
+			firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.error(errorCode, errorMessage)
+			});
+		}
 
 		firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
