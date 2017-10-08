@@ -208,28 +208,65 @@
 				<header class="major">
 					<h2>Event List</h2>
 
-					<p id="toChange">yes</p>
+<table><tr><td><b>SpaceX</b><br>
+<em>Halloween Party</em><td><td>5840 Claremont Drive <br> Elkridge, MD 21075</td><td>October 31st, 2017 <br> 10:00 pm - 2:30 am</td><td>moon-ticket,astronaut-costumes,socks</td></tr><tr><td><b>Google</b><br>
+<em>High School Meetup</em><td><td>421 Bloomsbury Ave <br> Catonsville, MD 21228</td><td>October 10th, 2017 <br> 10:00 am - 7:00 pm</td><td>laptops,lanyards,waterbottles,plushies</td></tr></table>
 
 					<script>
-						function updateEvents() {
-							var total = "<table>";
-							var backup = "";
-							var hasLooped = false;
 
-							var query = firebase.database().ref("all users").orderByKey();
+						var total = "<table>";
+						function do_a( callback ){
+
+						  setTimeout( function(){
+						    var query = firebase.database().ref("users").orderByKey();
 							query.once("value")
-								.then(function(snapshot) {
-									snapshot.forEach(function(childSnapshot) {
-										total += "<tr>";
-										console.log("in");
-										// console.log(total);
-										backup = total;
-										hasLooped = true;
-									});
-								});
+							.then(function(snapshot){
+								snapshot.forEach(function(childSnapshot){
 
-							console.log(total);
+									// var total = "<table>";
+									var childData = childSnapshot.val();
+
+									total += "<tr>";
+
+									total += "<td>";
+									total += "<b>" + childData['Company'] + "</b>" + "\n";
+									total += "<em>" + childData['Event'] + "</em>";
+									total += "<td>";
+
+									total += "<td>";
+									total += childData['Location'];
+									total += "</td>";
+
+									total += "<td>";
+									total += childData['Date'] + ", " + childData['Time'];
+									total += "</td>";
+
+									total += "<td>";
+									total += childData['Tags'];
+									total += "</td>";
+
+									total += "</tr>";
+									console.log(total);
+								});
+							});
+
+						    // if callback exist execute it
+						    callback && callback();
+						  }, 2000 );
+						  total += "</table>";
+						  console.log(total);
 						}
+
+						function do_b(){
+							console.log("toPrint: " + total);
+						  document.getElementById('eventList').innerHTML = total;
+						  console.log("done b");
+						}
+
+						do_a( function(){
+						  do_b(total);
+						});
+
 					</script>
 
 					<footer class="major">
