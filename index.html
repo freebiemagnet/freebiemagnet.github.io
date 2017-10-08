@@ -197,6 +197,8 @@
 							marker.setPosition(place.geometry.location);
 							marker.setVisible(true);
 						});
+
+						updateEvents();
 					}
 				</script>
 			</section>
@@ -210,51 +212,25 @@
 					<p id="toChange">yes</p>
 
 					<script>
-						firebase.database().ref('all users').on('value', function(snapshot) {
-							var test = snapshot.key;
-						});
+						function updateEvents() {
+							var total = "<table>";
+							var backup = "";
+							var hasLooped = false;
 
-						// console.log(test);
-						// var total = "<table>";
+							var query = firebase.database().ref("all users").orderByKey();
+							query.once("value")
+								.then(function(snapshot) {
+									snapshot.forEach(function(childSnapshot) {
+										total += "<tr>";
+										console.log("in");
+										// console.log(total);
+										backup = total;
+										hasLooped = true;
+									});
+								});
 
-						// firebase.database().ref('all users').on('value', function(snapshot) {
-						//     var test = snapshotToArray(snapshot);
-
-						//     for(var i = 0; i < test.length; i++){
-						//     	var testeat = test[i];
-
-						//     	// console.log(test[i]);
-						//     }
-
-						//     total += "<tr>";
-						//     for(var i = 0; i < test.length; i++){
-						//     	total += "<th>";
-						//     	var test2 = test[0];
-
-						//     	var test3 = test2['Date'];
-						//     	var test4 = test2['Location'];
-						//     	var test5 = test2['Tags'];
-						//     	var test6 = test2['Time'];
-
-						//     	// console.log(test2);
-						//     	// console.log(test2);
-						//     	total += "</th>";
-						//     }
-						//     total += "/<tr>";
-						// });
-
-						// function snapshotToArray(snapshot) {
-						//     var returnArr = [];
-
-						//     snapshot.forEach(function(childSnapshot) {
-						//         var item = childSnapshot.val();
-						//         item.key = childSnapshot.key;
-
-						//         returnArr.push(item);
-						//     });
-
-						//     return returnArr;
-						// };
+							console.log(total);
+						}
 					</script>
 
 					<footer class="major">
@@ -268,20 +244,30 @@
 			<section id="cta" class="main special">
 				<header class="major">
 					<h2>Login</h2>
-					<p>Organizers: Login Below!</p>
+					<p id="logininfo" style: "display:block">Organizers: Login Below!</p>
 				</header>
 				<footer class="major">
 
-					<input id="email" type="email" class="validate">
-					<label for="email">Email</label>
+					<input id="email" type="email" class="validate" style: "display:block">
+					<label id="labelemail" for="email" style: "display:block">Email</label>
 					<br />
-					<input id="password" type="password" class="validate">
-					<label for="password">Password</label>
+
+					<label id="loggeduser" style: "display:none"></label>
+
+					<input id="password" type="password" class="validate" style: "display:block">
+					<label id="labelpassword" for="password" style: "display:block">Password</label>
 					<br />
 
 					<ul class="actions">
-						<li><button id="register" class="button special">Register</button></li>
-						<li><button id="signin" class="button special">Sign In</button></li>
+						<li><button id="register" class="button special" style: "display:block">Register</button></li>
+						<li><button id="signin" class="button special" style: "display:block">Sign In</button></li>
+					</ul>
+
+					<ul class="actions">
+						<li>
+							<button id="addevent" class="button hide" style="display:none">Add an Event</button>
+							<button id="signout" class="button hide" style="display:none">Sign Out</button>
+						</li>
 					</ul>
 
 				</footer>
@@ -312,21 +298,86 @@
 
 	<!--firebase script-->
 	<script>
+		function signinUser(email) {
+			//show user info
+			document.getElementById("addevent").style.display = "block";
+			document.getElementById("signout").style.display = "block";
+			document.getElementById("loggeduser").innerHTML = "Welcome, " + email;
+			document.getElementById("loggeduser").style.display = "block";
+
+			//hide login page
+			document.getElementById("email").style.display = "none";
+			document.getElementById("labelemail").style.display = "none";
+			document.getElementById("password").style.display = "none";
+			document.getElementById("labelpassword").style.display = "none";
+			document.getElementById("register").style.display = "none";
+			document.getElementById("signin").style.display = "none";
+		}
+
+		function signoutUser() {
+
+			//hide user info
+			document.getElementById("addevent").style.display = "none";
+			document.getElementById("signout").style.display = "none";
+			document.getElementById("loggeduser").style.display = "none";
+
+			//show login page
+			document.getElementById("logininfo").style.display = "block";
+			document.getElementById("email").style.display = "block";
+			document.getElementById("email").value = '';
+			document.getElementById("labelemail").style.display = "block";
+			document.getElementById("password").style.display = "block";
+			document.getElementById("password").value = '';
+			document.getElementById("labelpassword").style.display = "block";
+			document.getElementById("register").style.display = "block";
+			document.getElementById("signin").style.display = "block";
+		}
+
 		var createAccount = function(email, password) {
 			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
 				// Handle Errors here.
 				var errorCode = error.code;
 				var errorMessage = error.message;
 				console.error(errorCode, errorMessage)
+
+				if (errorCode == "auth/invalid-email")
+					alert("Invalid email format.");
 			});
 		}
 
 		var signin = function(email, password) {
+
+			var errorCode = "";
+
 			firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
 				// Handle Errors here.
-				var errorCode = error.code;
+				errorCode = error.code;
 				var errorMessage = error.message;
 				console.error(errorCode, errorMessage)
+
+				if (errorCode == "auth/invalid-email")
+					alert("Invalid email format.");
+
+				else
+					alert("Either the username or password is incorrect.");
+
+			});
+
+			//if logged in with no error codes
+			if (errorCode == "") {
+				alert("Welcome back.");
+
+				signinUser(email);
+			}
+		}
+
+		var signout = function() {
+
+			firebase.auth().signOut().then(function() {
+				// Sign-out successful.
+				signoutUser();
+			}).catch(function(error) {
+				alert("Sign out failed.");
 			});
 		}
 
@@ -345,6 +396,8 @@
 				var password = $("#password").val();
 				if (email && password) {
 					createAccount(email, password);
+				} else {
+					alert("Please fill in both fields before registering!");
 				}
 			});
 			$("#signin").click(function(e) {
@@ -353,7 +406,13 @@
 				var password = $("#password").val();
 				if (email && password) {
 					signin(email, password);
+				} else {
+					alert("Please fill in both fields before logging in!");
 				}
+			});
+			$("#signout").click(function(e) {
+				e.preventDefault();
+				signout();
 			});
 		});
 	</script>
