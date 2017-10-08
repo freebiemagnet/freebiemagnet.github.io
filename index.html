@@ -17,7 +17,6 @@
 	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	<link rel="stylesheet" type="text/css" href="mapstyle.css" />
-
 	<style>
 		/* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -248,14 +247,12 @@
 				</header>
 				<footer class="major">
 
-					<input id="email" type="email" class="validate" style: "display:block">
-					<label id="labelemail" for="email" style: "display:block">Email</label>
+					<input id="email" type="email" class="validate" style: "display:block" placeholder="Email">
 					<br />
 
 					<label id="loggeduser" style: "display:none"></label>
 
-					<input id="password" type="password" class="validate" style: "display:block">
-					<label id="labelpassword" for="password" style: "display:block">Password</label>
+					<input id="password" type="password" class="validate" style: "display:block" placeholder="Password">
 					<br />
 
 					<ul class="actions">
@@ -263,14 +260,29 @@
 						<li><button id="signin" class="button special" style: "display:block">Sign In</button></li>
 					</ul>
 
-					<ul class="actions">
-						<li>
-							<button id="addevent" class="button hide" style="display:none">Add an Event</button>
-						</li>
-						<li>
-							<button id="signout" class="button hide" style="display:none">Sign Out</button>
-						</li>
-					</ul>
+					<div id="eventform" class="ui-content" style="display:none">
+						<input type="text" name="company" id="company" placeholder="Company Name"><br>
+
+						<input type="text" name="event" id="event" placeholder="Event Name"><br>
+
+						<input type="text" name="date" id="date" placeholder="Date"><br>
+
+						<input type="text" name="location" id="location" placeholder="Location"><br>
+
+						<input type="text" name="times" id="times" placeholder="Time"><br>
+
+						<input type="text" name="tags" id="tags" placeholder="Tags"><br>
+
+						<ul class="actions">
+							<li>
+								<button id="addevent" class="button special" style: "display:block; margin: 0 auto">Add new event!</button>
+							</li>
+
+							<li>
+								<button id="signout" class="button special" style="display:none">Sign Out</button>
+							</li>
+						</ul>
+					</div>
 
 				</footer>
 			</section>
@@ -287,7 +299,6 @@
 
 	<!-- Scripts -->
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-	//
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
 	<script src="assets/js/jquery.min.js"></script>
@@ -306,12 +317,11 @@
 			document.getElementById("signout").style.display = "block";
 			document.getElementById("loggeduser").innerHTML = "Welcome, " + email;
 			document.getElementById("loggeduser").style.display = "block";
+			document.getElementById("eventform").style.display = "block";
 
 			//hide login page
 			document.getElementById("email").style.display = "none";
-			document.getElementById("labelemail").style.display = "none";
 			document.getElementById("password").style.display = "none";
-			document.getElementById("labelpassword").style.display = "none";
 			document.getElementById("register").style.display = "none";
 			document.getElementById("signin").style.display = "none";
 		}
@@ -322,15 +332,14 @@
 			document.getElementById("addevent").style.display = "none";
 			document.getElementById("signout").style.display = "none";
 			document.getElementById("loggeduser").style.display = "none";
+			document.getElementById("eventform").style.display = "none";
 
 			//show login page
 			document.getElementById("logininfo").style.display = "block";
 			document.getElementById("email").style.display = "block";
 			document.getElementById("email").value = '';
-			document.getElementById("labelemail").style.display = "block";
 			document.getElementById("password").style.display = "block";
 			document.getElementById("password").value = '';
-			document.getElementById("labelpassword").style.display = "block";
 			document.getElementById("register").style.display = "block";
 			document.getElementById("signin").style.display = "block";
 		}
@@ -383,6 +392,31 @@
 			});
 		}
 
+		var addevent = function(email) {
+
+			var company = document.getElementById("company").value;
+			var event = document.getElementById("event").value;
+			var date = document.getElementById("date").value;
+			var location = document.getElementById("location").value;
+			var tags = document.getElementById("tags").value;
+			var times = document.getElementById("times").value;
+
+			var parent = email;
+
+			firebase.database().ref().child("users").push({
+
+				"User": parent,
+				"Company": company,
+				"Event": event,
+				"Date": date,
+				"Location": location,
+				"Tags": tags,
+				"Time": times
+
+			});
+
+		}
+
 		firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
 				console.log(user);
@@ -418,7 +452,8 @@
 			});
 			$("#addevent").click(function(e) {
 				e.preventDefault();
-				signout();
+				var email = $("#email").val();
+				addevent(email);
 			});
 		});
 	</script>
