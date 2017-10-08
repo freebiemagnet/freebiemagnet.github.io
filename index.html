@@ -172,7 +172,6 @@
 							anchorPoint: new google.maps.Point(0, -29)
 						});
 
-
 						autocomplete.addListener('place_changed', function() {
 
 							initMap();
@@ -197,6 +196,11 @@
 							marker.setVisible(true);
 						});
 
+						updateEvents();
+					}
+
+					function updateMapManual(){
+						initMap();
 						updateEvents();
 					}
 				</script>
@@ -229,53 +233,6 @@
 
 					<script>
 						function updateEvents() {
-							var total = "<table>";
-
-							
-
-												// var total = "<table>";
-												var childData = childSnapshot.val();
-
-												total += "<tr>";
-
-												total += "<td>";
-												total += "<b>" + childData['Company'] + "</b>" + "\n";
-												total += "<em>" + childData['Event'] + "</em>";
-												total += "<td>";
-
-												total += "<td>";
-												total += childData['Location'];
-												total += "</td>";
-
-												total += "<td>";
-												total += childData['Date'] + ", " + childData['Time'];
-												total += "</td>";
-
-												total += "<td>";
-												total += childData['Tags'];
-												total += "</td>";
-
-												total += "</tr>";
-												console.log(total);
-											});
-										});
-
-									// if callback exist execute it
-									callback && callback();
-								}, 2000);
-								total += "</table>";
-								console.log(total);
-							}
-
-							function do_b() {
-								console.log("toPrint: " + total);
-								// document.getElementById('eventList').innerHTML = total;
-								console.log("done b");
-							}
-
-							do_a(function() {
-								do_b(total);
-							});
 						}
 					</script>
 
@@ -472,6 +429,8 @@
 
 			});
 
+			updateMapManual();
+			alert("Event added!");
 		}
 
 		firebase.auth().onAuthStateChanged(function(user) {
