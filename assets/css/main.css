@@ -2023,6 +2023,16 @@
 			box-shadow: none;
 		}
 
+		input[type="submit"].hide,
+		input[type="reset"].hide,
+		input[type="button"].hide,
+		button.hide,
+		.button.hide {
+			background-color: #8cc9f0;
+			color: #ffffff !important;
+			box-shadow: none;
+		}
+
 			input[type="submit"].special:hover,
 			input[type="reset"].special:hover,
 			input[type="button"].special:hover,
