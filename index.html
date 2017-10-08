@@ -81,24 +81,23 @@
 	</style>
 
 </head>
+<!-- get firebase-->
+
+<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+<script>
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyAh9cdqEsSWOKYvldF2oWqYa2ghXRAcKfg",
+		authDomain: "freebie-e7139.firebaseapp.com",
+		databaseURL: "https://freebie-e7139.firebaseio.com",
+		projectId: "freebie-e7139",
+		storageBucket: "freebie-e7139.appspot.com",
+		messagingSenderId: "667636346966"
+	};
+	firebase.initializeApp(config);
+</script>
 
 <body>
-
-
-	<!-- get firebase-->
-	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
-	<script>
-		// Initialize Firebase
-		var config = {
-			apiKey: "AIzaSyAh9cdqEsSWOKYvldF2oWqYa2ghXRAcKfg",
-			authDomain: "freebie-e7139.firebaseapp.com",
-			databaseURL: "https://freebie-e7139.firebaseio.com",
-			projectId: "freebie-e7139",
-			storageBucket: "freebie-e7139.appspot.com",
-			messagingSenderId: "667636346966"
-		};
-		firebase.initializeApp(config);
-	</script>
 
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -181,25 +180,25 @@
 						});
 
 						autocomplete.addListener('place_changed', function() {
-							marker.setVisible(false);
-							var place = autocomplete.getPlace();
+								marker.setVisible(false);
+								var place = autocomplete.getPlace();
 
-							if (!place.geometry) {
-								window.alert("No details available for input: '" + place.name + "'");
-								return;
-							}
+								if (!place.geometry) {
+									window.alert("No details available for input: '" + place.name + "'");
+									return;
+								}
 
-							// If the place has a geometry, then present it on a map.
-							if (place.geometry.viewport) {
-								map.fitBounds(place.geometry.viewport);
-							} else {
-								map.setCenter(place.geometry.location);
-								map.setZoom(17); // Why 17? Because it looks good.
-							}
-							marker.setPosition(place.geometry.location);
-							marker.setVisible(true);
-						};
-					}
+								// If the place has a geometry, then present it on a map.
+								if (place.geometry.viewport) {
+									map.fitBounds(place.geometry.viewport);
+								} else {
+									map.setCenter(place.geometry.location);
+									map.setZoom(17); // Why 17? Because it looks good.
+								}
+								marker.setPosition(place.geometry.location);
+								marker.setVisible(true);
+							});
+						}
 				</script>
 				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3o57G1olSN-zpVPmq34BfcGqRVBEXZ3M&libraries=places&callback=initMap" async defer></script>
 			</section>
@@ -234,215 +233,16 @@
 						</li>
 					</ul>
 
-					<style>
-						/* Full-width input fields */
+					<button id="register">Register</button>
+					<button id="signin">Sign In</button>
 
-						input[type=text],
-						input[type=password] {
-							width: 100%;
-							padding: 12px 20px;
-							margin: 8px 0;
-							display: inline-block;
-							border: 1px solid #ccc;
-							box-sizing: border-box;
-						}
+					<input id="email" type="email" class="validate">
+					<label for="email">Email</label>
+					<br />
+					<input id="password" type="password" class="validate">
+					<label for="password">Password</label>
 
-						/* Set a style for all buttons */
 
-						button {
-							background-color: #4CAF50;
-							color: white;
-							padding: 14px 20px;
-							margin: 8px 0;
-							border: none;
-							cursor: pointer;
-							width: 100%;
-						}
-
-						button:hover {
-							opacity: 0.8;
-						}
-
-						/* Extra styles for the cancel button */
-
-						.cancelbtn {
-							width: auto;
-							padding: 10px 18px;
-							background-color: #f44336;
-						}
-
-						/* Center the image and position the close button */
-
-						.imgcontainer {
-							text-align: center;
-							margin: 24px 0 12px 0;
-							position: relative;
-						}
-
-						img.avatar {
-							width: 40%;
-							border-radius: 50%;
-						}
-
-						.container {
-							padding: 16px;
-						}
-
-						span.psw {
-							float: right;
-							padding-top: 16px;
-						}
-
-						/* The Modal (background) */
-
-						.modal {
-							display: none;
-							/* Hidden by default */
-							position: fixed;
-							/* Stay in place */
-							z-index: 1;
-							/* Sit on top */
-							left: 0;
-							top: 0;
-							width: 100%;
-							/* Full width */
-							height: 100%;
-							/* Full height */
-							overflow: auto;
-							/* Enable scroll if needed */
-							background-color: rgb(0, 0, 0);
-							/* Fallback color */
-							background-color: rgba(0, 0, 0, 0.4);
-							/* Black w/ opacity */
-							padding-top: 60px;
-						}
-
-						/* Modal Content/Box */
-
-						.modal-content {
-							background-color: #fefefe;
-							margin: 5% auto 15% auto;
-							/* 5% from the top, 15% from the bottom and centered */
-							border: 1px solid #888;
-							width: 80%;
-							/* Could be more or less, depending on screen size */
-						}
-
-						/* The Close Button (x) */
-
-						.close {
-							position: absolute;
-							right: 25px;
-							top: 0;
-							color: #000;
-							font-size: 35px;
-							font-weight: bold;
-						}
-
-						.close:hover,
-						.close:focus {
-							color: red;
-							cursor: pointer;
-						}
-
-						/* Add Zoom Animation */
-
-						.animate {
-							-webkit-animation: animatezoom 0.6s;
-							animation: animatezoom 0.6s
-						}
-
-						@-webkit-keyframes animatezoom {
-							from {
-								-webkit-transform: scale(0)
-							}
-							to {
-								-webkit-transform: scale(1)
-							}
-						}
-
-						@keyframes animatezoom {
-							from {
-								transform: scale(0)
-							}
-							to {
-								transform: scale(1)
-							}
-						}
-
-						/* Change styles for span and cancel button on extra small screens */
-
-						@media screen and (max-width: 300px) {
-							span.psw {
-								display: block;
-								float: none;
-							}
-							.cancelbtn {
-								width: 100%;
-							}
-						}
-					</style>
-					<!-- The Modal -->
-					<div id="id01" class="modal">
-						<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-
-						<!-- Modal Content -->
-						<form class="modal-content animate">
-							/*<div class="imgcontainer">
-								<img src="images/logo.svg" alt="Avatar" class="avatar">
-							</div>*/
-
-							<div class="container">
-								<label><b>Email</b></label>
-								<input type="text" placeholder="Enter Email" name="uname" required>
-
-								<label><b>Password</b></label>
-								<input type="password" placeholder="Enter Password" name="psw" required>
-
-								<button type="submit">Login</button>
-							</div>
-
-						</form>
-					</div>
-
-					<!-- Button to open the modal login form -->
-					<script>
-						function orgSignIn(email, password) {
-							firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-								console.log(error.code);
-								console.log(error.message);
-							});
-						}
-
-						function orgSignOut() {
-							firebase.auth().signOut().then(function() {
-								console.log("Logged out!")
-							}, function(error) {
-								console.log(error.code);
-								console.log(error.message);
-							});
-						}
-					</script>
-
-					<script>
-						document.getElementById('submit').onclick = function() {
-							var username = uname;
-							var psw = psw;
-							alert("button was clicked");
-						}​;​
-					</script>
-
-					<script>
-						// Get the modal
-						var modal = document.getElementById('id01');
-
-						// When the user clicks anywhere outside of the modal, close it
-						window.onclick = function(event) {
-							if (event.target == modal) {
-								modal.style.display = "none";
-							}
-						}
-					</script>
 
 				</footer>
 			</section>
@@ -485,6 +285,10 @@
 	</div>
 
 	<!-- Scripts -->
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+	//
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.scrollex.min.js"></script>
 	<script src="assets/js/jquery.scrolly.min.js"></script>
@@ -492,6 +296,56 @@
 	<script src="assets/js/util.js"></script>
 	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="assets/js/main.js"></script>
+
+	// firebase script
+	<script>
+		var createAccount = function(email, password) {
+			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.error(errorCode, errorMessage)
+			});
+		}
+
+		var signin = function(email,password) {
+		firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.error(errorCode, errorMessage)
+});
+}
+
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				console.log(user);
+			} else {
+				console.error("No user signed in");
+			}
+		});
+
+		$(document).ready(function() {
+			$("#register").click(function(e) {
+				e.preventDefault();
+				var email = $("#email").val();
+				var password = $("#password").val();
+				if (email && password) {
+					createAccount(email, password);
+				}
+			});
+			$("#signin").click(function(e) {
+				e.preventDefault();
+				var email = $("#email").val();
+				var password = $("#password").val();
+				if (email && password) {
+					signin(email, password);
+				}
+			});
+		});
+	</script>
+	// s
+
 
 </body>
 
