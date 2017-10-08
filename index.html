@@ -151,7 +151,7 @@
 				<div id="map"></div>
 				<script type="text/javascript" src="map.js"></script>
 				<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-				
+
 				<script>
 					// This example requires the Places library. Include the libraries=places
 					// parameter when you first load the API. For example:
@@ -229,27 +229,6 @@
 					<ul class="actions">
 						<li><a href="generic.html" class="button special">Get Started</a></li>
 						<li>
-
-							<!-- Button to open the modal login form -->
-							<script>
-								function orgSignIn(email, password) {
-									firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-										console.log(error.code);
-										console.log(error.message);
-									});
-								}
-
-
-								function orgSignOut() {
-									firebase.auth().signOut().then(function() {
-										console.log("Logged out!")
-									}, function(error) {
-										console.log(error.code);
-										console.log(error.message);
-									});
-								}
-							</script>
-
 
 							<!-- Button to open the modal login form -->
 							<button onclick="document.getElementById('id01').style.display='block'">Login</button>
@@ -356,15 +335,35 @@
 								<input type="password" placeholder="Enter Password" name="psw" required>
 
 								<button type="submit">Login</button>
-								<input type="checkbox" checked="checked"> Remember me
 							</div>
 
-							<div class="container" style="background-color:#f1f1f1">
-								<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-								<span class="psw">Forgot <a href="#">password?</a></span>
-							</div>
 						</form>
 					</div>
+
+					<!-- Button to open the modal login form -->
+					<script>
+						function orgSignIn(email, password) {
+							firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+								console.log(error.code);
+								console.log(error.message);
+							});
+						}
+
+						function orgSignOut() {
+							firebase.auth().signOut().then(function() {
+								console.log("Logged out!")
+							}, function(error) {
+								console.log(error.code);
+								console.log(error.message);
+							});
+						}
+					</script>
+
+					<script>
+						document.getElementById('submit').onclick = function() {
+							alert("button was clicked");
+						}​;​
+					</script>
 
 					<script>
 						// Get the modal
