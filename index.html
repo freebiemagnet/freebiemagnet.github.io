@@ -197,8 +197,34 @@
 							}
 							marker.setPosition(place.geometry.location);
 							marker.setVisible(true);
+<<<<<<< HEAD
 						});
-				}
+					}
+=======
+						} ;
+					}
+
+					marker.setVisible(false);
+					var place = autocomplete.getPlace();
+
+					if (!place.geometry) {
+						window.alert(" No details available for input: '" + place.name + "'");
+						return;
+					}
+
+					// If the place has a geometry, then present it on a map.
+					if (place.geometry.viewport) {
+						map.fitBounds(place.geometry.viewport);
+					} else {
+						map.setCenter(place.geometry.location);
+						map.setZoom(17); // Why 17? Because it looks good.
+					}
+					marker.setPosition(place.geometry.location);
+					marker.setVisible(true);
+					});
+					}
+
+>>>>>>> 36d14336db1b6aaee0caeab1202303ab6b81c01d
 				</script>
 				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3o57G1olSN-zpVPmq34BfcGqRVBEXZ3M&libraries=places&callback=initMap" async defer></script>
 			</section>
@@ -212,18 +238,21 @@
 					<p id="toChange">yes</p>
 
 					<script>
-						var total = "<table>";
-
 						var query = firebase.database().ref("all users").orderByKey();
 						query.once("value")
 						  .then(function(snapshot) {
 						    snapshot.forEach(function(childSnapshot) {
-						    	total += "<tr>";
-						    	console.log("in");
-						    	console.log(total);
+						    		childSnapshot.forEach(function(childSnapshot2){
+						    			      // key will be "ada" the first time and "alan" the second time
+									      var key = childSnapshot2.key;
+									      	console.log(key);
+									      // childData will be the actual contents of the child
+									      var childData = childSnapshot2.val();
+									      console.log(childData);
+						    		});
+
 						  });
 						});
-						  // console.log(total);
 					</script>
 
 					<footer class="major">
