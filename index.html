@@ -197,8 +197,12 @@
 							marker.setPosition(place.geometry.location);
 							marker.setVisible(true);
 						});
+<<<<<<< HEAD
 				}
+=======
+					}
 					
+>>>>>>> 9fd803f4043ed3323ad9b4ea0779be345d5c6bff
 				</script>
 			</section>
 
@@ -215,7 +219,7 @@
 
 						var query = firebase.database().ref("all users").orderByKey();
 						query.once("value")
-
+<<<<<<< HEAD
 						  .then(function(snapshot) {
 						    snapshot.forEach(function(childSnapshot) {
 						    	total += "<tr>";
@@ -224,7 +228,7 @@
 						  });
 						});
 						  // console.log(total);
-
+=======
 							.then(function(snapshot) {
 								snapshot.forEach(function(childSnapshot) {
 									childSnapshot.forEach(function(childSnapshot2) {
@@ -238,7 +242,7 @@
 
 								});
 							});
-
+>>>>>>> 9fd803f4043ed3323ad9b4ea0779be345d5c6bff
 					</script>
 
 					<footer class="major">
