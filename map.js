@@ -1,16 +1,6 @@
 
 var map;
 
-var config = {
-		apiKey: "AIzaSyAh9cdqEsSWOKYvldF2oWqYa2ghXRAcKfg",
-		authDomain: "freebie-e7139.firebaseapp.com",
-		databaseURL: "https://freebie-e7139.firebaseio.com",
-		projectId: "freebie-e7139",
-		storageBucket: "freebie-e7139.appspot.com",
-		messagingSenderId: "667636346966"
-	};
-firebase.initializeApp(config);
-
 function initMap() {
 	var query = firebase.database().ref("users").orderByKey();
 	var geocoder = new google.maps.Geocoder();
@@ -21,7 +11,7 @@ function initMap() {
       var key = childSnapshot.key;
       // childData will be the actual contents of the child
       var childData = childSnapshot.val();
-	  
+
 	  console.log(childData);
 	  //get lat and long from address
 	  geocoder.geocode({'address': childData.Location}, function(results, status) {
@@ -45,7 +35,7 @@ function initMap() {
 						});
 						});
 						});
-						
+
 						map = new google.maps.Map(document.getElementById('map'), {
 							zoom: 16,
 							center: new google.maps.LatLng(39.2556, -76.7110),

@@ -133,7 +133,7 @@
 							<li><a href="about.html" class="button">Learn More</a></li>
 						</ul>
 					</div>
-					<span class="image"><img src="images/pic01.jpg" alt="" /></span>
+					<span class="image"><img src="images/freestuff.gif" alt="" /></span>
 				</div>
 			</section>
 
@@ -208,65 +208,81 @@
 				<header class="major">
 					<h2>Event List</h2>
 
-<table><tr><td><b>SpaceX</b><br>
-<em>Halloween Party</em><td><td>5840 Claremont Drive <br> Elkridge, MD 21075</td><td>October 31st, 2017 <br> 10:00 pm - 2:30 am</td><td>moon-ticket,astronaut-costumes,socks</td></tr><tr><td><b>Google</b><br>
-<em>High School Meetup</em><td><td>421 Bloomsbury Ave <br> Catonsville, MD 21228</td><td>October 10th, 2017 <br> 10:00 am - 7:00 pm</td><td>laptops,lanyards,waterbottles,plushies</td></tr></table>
+					<table>
+						<tr>
+							<td><b>SpaceX</b><br>
+								<em>Halloween Party</em>
+								<td>
+									<td>5840 Claremont Drive <br> Elkridge, MD 21075</td>
+									<td>October 31st, 2017 <br> 10:00 pm - 2:30 am</td>
+									<td>moon-ticket,astronaut-costumes,socks</td>
+						</tr>
+						<tr>
+							<td><b>Google</b><br>
+								<em>High School Meetup</em>
+								<td>
+									<td>421 Bloomsbury Ave <br> Catonsville, MD 21228</td>
+									<td>October 10th, 2017 <br> 10:00 am - 7:00 pm</td>
+									<td>laptops,lanyards,waterbottles,plushies</td>
+						</tr>
+					</table>
 
 					<script>
+						function updateEvents() {
+							var total = "<table>";
 
-						var total = "<table>";
-						function do_a( callback ){
+							function do_a(callback) {
 
-						  setTimeout( function(){
-						    var query = firebase.database().ref("users").orderByKey();
-							query.once("value")
-							.then(function(snapshot){
-								snapshot.forEach(function(childSnapshot){
+								setTimeout(function() {
+									var query = firebase.database().ref("users").orderByKey();
+									query.once("value")
+										.then(function(snapshot) {
+											snapshot.forEach(function(childSnapshot) {
 
-									// var total = "<table>";
-									var childData = childSnapshot.val();
+												// var total = "<table>";
+												var childData = childSnapshot.val();
 
-									total += "<tr>";
+												total += "<tr>";
 
-									total += "<td>";
-									total += "<b>" + childData['Company'] + "</b>" + "\n";
-									total += "<em>" + childData['Event'] + "</em>";
-									total += "<td>";
+												total += "<td>";
+												total += "<b>" + childData['Company'] + "</b>" + "\n";
+												total += "<em>" + childData['Event'] + "</em>";
+												total += "<td>";
 
-									total += "<td>";
-									total += childData['Location'];
-									total += "</td>";
+												total += "<td>";
+												total += childData['Location'];
+												total += "</td>";
 
-									total += "<td>";
-									total += childData['Date'] + ", " + childData['Time'];
-									total += "</td>";
+												total += "<td>";
+												total += childData['Date'] + ", " + childData['Time'];
+												total += "</td>";
 
-									total += "<td>";
-									total += childData['Tags'];
-									total += "</td>";
+												total += "<td>";
+												total += childData['Tags'];
+												total += "</td>";
 
-									total += "</tr>";
-									console.log(total);
-								});
+												total += "</tr>";
+												console.log(total);
+											});
+										});
+
+									// if callback exist execute it
+									callback && callback();
+								}, 2000);
+								total += "</table>";
+								console.log(total);
+							}
+
+							function do_b() {
+								console.log("toPrint: " + total);
+								document.getElementById('eventList').innerHTML = total;
+								console.log("done b");
+							}
+
+							do_a(function() {
+								do_b(total);
 							});
-
-						    // if callback exist execute it
-						    callback && callback();
-						  }, 2000 );
-						  total += "</table>";
-						  console.log(total);
 						}
-
-						function do_b(){
-							console.log("toPrint: " + total);
-						  document.getElementById('eventList').innerHTML = total;
-						  console.log("done b");
-						}
-
-						do_a( function(){
-						  do_b(total);
-						});
-
 					</script>
 
 					<footer class="major">
@@ -312,7 +328,7 @@
 
 						<ul class="actions">
 							<li>
-								<button id="addevent" class="button special" style: "display:block; margin: 0 auto">Add new event!</button>
+								<button id="addevent" class="button special">Add new event!</button>
 							</li>
 
 							<li>
@@ -395,10 +411,12 @@
 					alert("Invalid email format.");
 			});
 
-			if (errorCode == ""){
+			if (errorCode == "") {
 				alert("Welcome!");
 
 				signinUser(email);
+			} else {
+				alert("There was an error making your account.");
 			}
 		}
 
@@ -415,9 +433,8 @@
 				if (errorCode == "auth/invalid-email")
 					alert("Invalid email format.");
 
-				else
+				else if (errorCode != "")
 					alert("Either the username or password is incorrect.");
-
 			});
 
 			//if logged in with no error codes
