@@ -184,6 +184,11 @@
 							anchorPoint: new google.maps.Point(0, -29)
 						});
 
+						function updateMapManual() {
+							initMap();
+							updateEvents();
+						}
+
 						autocomplete.addListener('place_changed', function() {
 
 							initMap();
@@ -209,11 +214,6 @@
 
 							updateMapManual();
 						});
-
-						function updateMapManual() {
-							initMap();
-							updateEvents();
-						}
 					}
 				</script>
 			</section>
@@ -500,7 +500,9 @@
 
 			});
 
-			updateMapManual();
+			initMap();
+			updateEvents();
+			//updateMapManual();
 			alert("Event added!");
 		}
 
