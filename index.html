@@ -216,15 +216,15 @@
 
 						var query = firebase.database().ref("all users").orderByKey();
 						query.once("value")
-						  .then(function(snapshot) {
-						    snapshot.forEach(function(childSnapshot) {
-						    	total += "<tr>";
-						    	console.log("in");
-						    	// console.log(total);
-						    	backup = total;
-						    	hasLooped = true;
-						  });
-						});
+							.then(function(snapshot) {
+								snapshot.forEach(function(childSnapshot) {
+									total += "<tr>";
+									console.log("in");
+									// console.log(total);
+									backup = total;
+									hasLooped = true;
+								});
+							});
 					</script>
 
 					<footer class="major">
@@ -288,16 +288,32 @@
 				var errorCode = error.code;
 				var errorMessage = error.message;
 				console.error(errorCode, errorMessage)
+
+				if (errorCode == "auth/invalid-email")
+					alert("Invalid email format.");
 			});
 		}
 
 		var signin = function(email, password) {
+
+			var errorCode = "";
 			firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
 				// Handle Errors here.
-				var errorCode = error.code;
+				errorCode = error.code;
 				var errorMessage = error.message;
 				console.error(errorCode, errorMessage)
+
+				if (errorCode == "auth/invalid-email")
+					alert("Invalid email format.");
+
+				else
+					alert("Either the username or password is incorrect.");
 			});
+
+			//if logged in with no error codes
+			if (errorCode == ""){
+				alert("Welcome back.");
+			}
 		}
 
 		firebase.auth().onAuthStateChanged(function(user) {
@@ -315,8 +331,7 @@
 				var password = $("#password").val();
 				if (email && password) {
 					createAccount(email, password);
-				}
-				else{
+				} else {
 					alert("Please fill in both fields before registering!");
 				}
 			});
@@ -326,9 +341,8 @@
 				var password = $("#password").val();
 				if (email && password) {
 					signin(email, password);
-				}
-				else{
-						alert("Please fill in both fields before registering!");
+				} else {
+					alert("Please fill in both fields before logging in!");
 				}
 			});
 		});
