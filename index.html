@@ -307,66 +307,6 @@
 
 					<div id="addTo">Enter a location to get started.</div>
 
-					<!-- <script>
-						var total = "<table>";
-
-						function updateEvents() {
-
-							function do_a(callback) {
-
-								setTimeout(function() {
-									var query = firebase.database().ref("users").orderByKey();
-									query.once("value")
-										.then(function(snapshot) {
-											snapshot.forEach(function(childSnapshot) {
-
-												// var total = "<table>";
-												var childData = childSnapshot.val();
-
-												total += "<tr>";
-
-												total += "<td>";
-												total += "<b>" + childData['Company'] + "</b>" + "\n";
-												total += "<em>" + childData['Event'] + "</em>";
-												total += "<td>";
-
-												total += "<td>";
-												total += childData['Location'];
-												total += "</td>";
-
-												total += "<td>";
-												total += childData['Date'] + ", " + childData['Time'];
-												total += "</td>";
-
-												total += "<td>";
-												total += childData['Tags'];
-												total += "</td>";
-
-												total += "</tr>";
-											});
-										});
-
-									// if callback exist execute it
-									callback && callback();
-								}, 2000);
-								// total += "</table>";
-							}
-
-
-							function do_b() {
-								total += "</tables>";
-								// document.getElementById('eventList').innerHTML = total;
-								console.log("done b");
-							}
-
-							do_a(function() {
-								do_b();
-							});
-=======
->>>>>>> 7a237dafc780a73e18630346c016b5a9e1fccf9b
-						}
-					</script>
- -->
 					<footer class="major">
 						<ul class="actions">
 							<li><a href="#first" class="button">Change Location</a></li>
