@@ -317,9 +317,6 @@
 
 							<!-- Button to open the modal login form -->
 							<script>
-								var email = "myemail@email.com";
-								var password = "mypassword";
-
 								function orgSignIn(email, password) {
 									firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
 										console.log(error.code);
@@ -633,7 +630,7 @@
 						          }
 
 						          console.log("--");
-						          
+
 						          // If the place has a geometry, then present it on a map.
 						          if (place.geometry.viewport) {
 						            map.fitBounds(place.geometry.viewport);
