@@ -12,7 +12,6 @@ function initMap() {
       // childData will be the actual contents of the child
       var childData = childSnapshot.val();
 
-	  console.log(childData);
 	  //get lat and long from address
 	  geocoder.geocode({'address': childData.Location}, function(results, status) {
           if (status === 'OK') {
@@ -37,9 +36,19 @@ function initMap() {
 						});
 
 						map = new google.maps.Map(document.getElementById('map'), {
-							zoom: 16,
+							zoom: 15,
 							center: new google.maps.LatLng(39.2556, -76.7110),
 							});
+							
+							if (navigator.geolocation) {
+								navigator.geolocation.getCurrentPosition(function(position) {
+									var pos = {
+										lat: position.coords.latitude,
+										lng: position.coords.longitude
+										};
+										map.setCenter(pos);
+										});
+							}
 
   var infowindow = new google.maps.InfoWindow();
   var markers = new Array(), i;
