@@ -12,11 +12,13 @@ function initMap() {
       var key = childSnapshot.key;
       // childData will be the actual contents of the child
       var childData = childSnapshot.val();
-      var data = '<h4>' + childData.Event + ' with ' + childData.Company +'</h4>' +
-          '<p>' + childData.Time + ' on ' + childData.Date + ' at ' + childData.Location + '</p><p><i>' + childData.Tags + '</i></p>';
+      /*var data = '<h4>' + childData.Event + ' with ' + childData.Company +'</h4>' +
+          '<p>' + childData.Time + ' on ' + childData.Date + ' at ' + childData.Location + '</p><p><i>' + childData.Tags + '</i></p>';*/
+
+			var data = childData.Company + '|' + childData.Event + '|' + childData.Location + '|' + childData.Date + '|' + childData.Time + '|' + childData.Tags + '|';
       allMarkers.push(data);
       // console.log(allMarkers.length + " psh");
-			
+
       var data = '<h4>' + childData.Event + ' with ' + childData.Company +'</h4>' +
           '<p>' + childData.Time + ' on ' + childData.Date + ' at ' + childData.Location + '</p><p><i>' + childData.Tags + '</i></p>';
       allMarkers.push(data);

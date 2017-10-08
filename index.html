@@ -102,13 +102,12 @@
 <body>
 
 	<script>
-		function newFunction(){
+		function newFunction() {
 			console.log("in");
-				var unique = allMarkers.filter(function(elem, index, self) {
-    						return index == self.indexOf(elem);
-						})
+			var unique = allMarkers.filter(function(elem, index, self) {
+				return index == self.indexOf(elem);
+			})
 		}
-
 	</script>
 
 	<!-- Wrapper -->
@@ -208,14 +207,14 @@
 							marker.setPosition(place.geometry.location);
 							marker.setVisible(true);
 
-						updateEvents();
+							updateMapManual();
 						});
 
-					function updateMapManual(){
-						initMap();
-						updateEvents();
+						function updateMapManual() {
+							initMap();
+							updateEvents();
+						}
 					}
-				}
 				</script>
 			</section>
 
@@ -223,17 +222,21 @@
 			<section id="second" class="main special">
 
 				<script>
-					function updateEvents(){
+					function updateEvents() {
 
-						var unique;
-						setTimeout(function(){
-							unique = allMarkers.filter(function(elem, index, self) {
-						}, 2000);
-						console.log("entered");
-
-						// console.log("all marker " + allMarkers.length);
+						console.log("all marker " + allMarkers.length);
+						var unique = [];
+						for (var i = 0; i < allMarkers.length; i++) {
+							if (!unique.includes(allMarkers[i]))
+								unique.push(allMarkers[i]);
+						}
 
 						var tableText = "<table>";
+
+						do_a(function() {
+							console.log("did A");
+							do_b();
+						});
 
 						function do_a(callback) {
 
@@ -243,10 +246,9 @@
 
 								// console.log("set timeout");
 
-								// console.log(unique.length);
-								for(var i = 0; i < unique.length; i++){
+								for (var i = 0; i < unique.length; i++) {
 
-									var event = unique[i].substring(4, unique[i].indexOf("<p>") - 5);
+									/*var event = unique[i].substring(4, unique[i].indexOf("<p>") - 5);
 									unique[i] = unique[i].substring(unique[i].indexOf("with") + 5);
 
 									var company = unique[i].substring(0, unique[i].indexOf("</h4>"));
@@ -254,18 +256,33 @@
 									var time = unique[i].substring(0, unique[i].indexOf("on") - 1);
 									var date = unique[i].substring(unique[i].indexOf("on") + 3, unique[i].indexOf("at") - 1);
 									var location = unique[i].substring(unique[i].indexOf("at") + 3, unique[i].indexOf("</p>"));
-									var tags = unique[i].substring(unique[i].indexOf("<i>") + 3, unique[i].indexOf("</i>"));
+									var tags = unique[i].substring(unique[i].indexOf("<i>") + 3, unique[i].indexOf("</i>"));*/
 
-									tableText += "<tr";
+									var company = unique[i].substring(0, unique[i].indexOf('|'));
+									unique[i] = unique[i].substring(unique[i].indexOf('|')+1);
 
-									console.log("middle");
+									var event = unique[i].substring(0, unique[i].indexOf('|'));
+									unique[i] = unique[i].substring(unique[i].indexOf('|')+1);
+
+									var location = unique[i].substring(0, unique[i].indexOf('|'));
+									unique[i] = unique[i].substring(unique[i].indexOf('|')+1);
+
+									var date = unique[i].substring(0, unique[i].indexOf('|'));
+									unique[i] = unique[i].substring(unique[i].indexOf('|')+1);
+
+									var time = unique[i].substring(0, unique[i].indexOf('|'));
+									unique[i] = unique[i].substring(unique[i].indexOf('|')+1);
+
+									var tags = unique[i].substring(0, unique[i].indexOf('|'));
+
+									tableText += "<tr>";
 
 									tableText += "<td>";
 									tableText += "<b>" + company + "</b>" + "<br>";
 									tableText += "<em>" + event + "</em>";
 									tableText += "</td>";
 
-									tableText += "<td>" + location.substring(0, location.indexOf(",")) + " <br> " + location.substring(location.indexOf(",") + 2, location.indexOf("</p>")) + "</td>";
+									tableText += "<td>" + location.substring(0, location.indexOf(",")) + " <br> " + location.substring(location.indexOf(",") + 1) + "</td>";
 
 									tableText += "<td>" + date + " <br> " + time + "</td>";
 
@@ -273,32 +290,27 @@
 
 									tableText += "</tr>";
 								}
-							}, 2000);
 
+								document.getElementById("addTo").innerHTML = tableText + "</table>";
+							}, 2000);
 						}
 
 						function do_b() {
 							console.log("did B");
 							document.getElementById("addTo").innerHTML = tableText + "</table";
 						}
-
-						do_a(function() {
-							console.log("did A");
-								do_b();
-						});
 					}
 				</script>
 
 				<header class="major">
 					<h2>Event List</h2>
 
-					<div id="addTo">test</div>
+					<div id="addTo">Enter a location to get started.</div>
 
 					<!-- <script>
 						var total = "<table>";
 
 						function updateEvents() {
-<<<<<<< HEAD
 
 							function do_a(callback) {
 
@@ -590,7 +602,6 @@
 				var email = $("#email").val();
 				addevent(email);
 			});
-			updateEvents();
 		});
 	</script>
 
