@@ -1,76 +1,58 @@
 
 var map;
 
+var config = {
+		apiKey: "AIzaSyAh9cdqEsSWOKYvldF2oWqYa2ghXRAcKfg",
+		authDomain: "freebie-e7139.firebaseapp.com",
+		databaseURL: "https://freebie-e7139.firebaseio.com",
+		projectId: "freebie-e7139",
+		storageBucket: "freebie-e7139.appspot.com",
+		messagingSenderId: "667636346966"
+	};
+firebase.initializeApp(config);
+
 function initMap() {
-
-  var events = [{
-      lat: 39.2556,
-      lng: -76.7110,
-      eventName: "umbc"
-    },
-    {
-      lat: 39.2563,
-      lng: -76.7116,
-      eventName: "umbc library"
-    },
-    {
-      lat: 39.2538,
-      lng: -76.7143,
-      eventName: "umbc engineering building"
-    },
-    {
-      lat: 39.2505,
-      lng: -76.7075,
-      eventName: "umbc stadium"
-    },
-    {
-      lat: 39.2548,
-      lng: -76.7108,
-      eventName: "umbc university commons"
-    },
-    {
-      lat: 39.2496,
-      lng: -76.7086,
-      eventName: "umbc baseball field"
-    },
-    {
-      lat: 39.2536,
-      lng: -76.7132,
-      eventName: "umbc registrars office"
-    },
-    {
-      lat: 39.2545,
-      lng: -76.7097,
-      eventName: "umbc department of physics"
-    }
-  ]
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 16,
-    center: new google.maps.LatLng(39.2556, -76.7110),
-  });
+	var query = firebase.database().ref("users").orderByKey();
+	var geocoder = new google.maps.Geocoder();
+	query.once("value")
+	.then(function(snapshot) {
+		snapshot.forEach(function(childSnapshot) {
+      // key will be "ada" the first time and "alan" the second time
+      var key = childSnapshot.key;
+      // childData will be the actual contents of the child
+      var childData = childSnapshot.val();
+	  
+	  console.log(childData);
+	  //get lat and long from address
+	  geocoder.geocode({'address': childData.Location}, function(results, status) {
+          if (status === 'OK') {
+            var latlong = results[0].geometry.location;
+            var marker = new google.maps.Marker({
+              map: map,
+              position: latlong
+            });
+			google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+					infowindowContent = '<h4>' + childData.Event + ' with ' + childData.Company +'</h4>' +
+					'<p>' + childData.Time + ' at ' + childData.Location + '</p><p><i>' + childData.Tags + '</i></p>';
+					infowindow.setContent(infowindowContent);
+					infowindow.open(map, this);
+					}
+					})(marker, i))
+					} else {
+						alert('Geocode was not successful for the following reason: ' + status);
+						}
+						});
+						});
+						});
+						
+						map = new google.maps.Map(document.getElementById('map'), {
+							zoom: 16,
+							center: new google.maps.LatLng(39.2556, -76.7110),
+							});
 
   var infowindow = new google.maps.InfoWindow();
-
-  var marker = new Array(),
-    i;
-
-  for (i = 0; i < events.length; i++) {
-    marker[i] = new google.maps.Marker({
-      position: new google.maps.LatLng(events[i]["lat"], events[i]["lng"]),
-      map: map
-    });
-
-    google.maps.event.addListener(marker[i], 'click', (function(marker, i) {
-      return function() {
-        infowindow.setContent(events[i]["eventName"]);
-        infowindow.open(map, this);
-      }
-    })(marker[i], i));
-  }
-  var markerCluster = new MarkerClusterer(map, marker, {
-    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-  });
+  var markers = new Array(), i;
 
 updateMap();
 }
