@@ -101,6 +101,16 @@
 
 <body>
 
+	<script>
+		function newFunction(){
+			console.log("in");
+				var unique = allMarkers.filter(function(elem, index, self) {
+    						return index == self.indexOf(elem);
+						})
+		}
+
+	</script>
+
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -198,17 +208,14 @@
 							marker.setPosition(place.geometry.location);
 							marker.setVisible(true);
 
-
 						updateEvents();
 						});
-
-						updateEvents();
-					}
 
 					function updateMapManual(){
 						initMap();
 						updateEvents();
 					}
+				}
 				</script>
 			</section>
 
@@ -218,25 +225,25 @@
 				<script>
 					function updateEvents(){
 
+						var unique;
+						setTimeout(function(){
+							unique = allMarkers.filter(function(elem, index, self) {
+						}, 2000);
 						console.log("entered");
 
-						console.log("all marker " + allMarkers.length);
-
-						var unique = allMarkers.filter(function(elem, index, self) {
-    						return index == self.indexOf(elem);
-						})
+						// console.log("all marker " + allMarkers.length);
 
 						var tableText = "<table>";
 
 						function do_a(callback) {
 
-							console.log("did A callbakc");
+							// console.log("did A callbakc");
 
 							setTimeout(function() {
 
-								console.log("set timeout");
+								// console.log("set timeout");
 
-								console.log(unique.length);
+								// console.log(unique.length);
 								for(var i = 0; i < unique.length; i++){
 
 									var event = unique[i].substring(4, unique[i].indexOf("<p>") - 5);
@@ -278,7 +285,7 @@
 						do_a(function() {
 							console.log("did A");
 								do_b();
-							});
+						});
 					}
 				</script>
 
