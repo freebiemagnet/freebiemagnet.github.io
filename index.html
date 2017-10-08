@@ -18,7 +18,7 @@
 	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	<link rel="stylesheet" type="text/css" href="mapstyle.css" />
 
-	<script type="text/javascript" src="map.js"></script> 
+	<script type="text/javascript" src="map.js"></script>
 
 	<style>
 		/* Always set the map height explicitly to define the size of the div
@@ -201,8 +201,6 @@
 
 						updateEvents();
 						});
-
-						updateEvents();
 					}
 
 					function updateMapManual(){
@@ -217,26 +215,23 @@
 
 				<script>
 					function updateEvents(){
-
-						console.log("entered");
-
 						console.log("all marker " + allMarkers.length);
 
 						var unique = allMarkers.filter(function(elem, index, self) {
     						return index == self.indexOf(elem);
 						})
 
+						if(unique.length == 0)
+							initMap();
+
+						console.log("unique " + unique.length);
+
 						var tableText = "<table>";
 
 						function do_a(callback) {
 
-							console.log("did A callbakc");
-
 							setTimeout(function() {
 
-								console.log("set timeout");
-
-								console.log(unique.length);
 								for(var i = 0; i < unique.length; i++){
 
 									var event = unique[i].substring(4, unique[i].indexOf("<p>") - 5);
@@ -250,8 +245,6 @@
 									var tags = unique[i].substring(unique[i].indexOf("<i>") + 3, unique[i].indexOf("</i>"));
 
 									tableText += "<tr";
-
-									console.log("middle");
 
 									tableText += "<td>";
 									tableText += "<b>" + company + "</b>" + "<br>";
@@ -271,12 +264,10 @@
 						}
 
 						function do_b() {
-							console.log("did B");
 							document.getElementById("addTo").innerHTML = tableText + "</table";
 						}
 
 						do_a(function() {
-							console.log("did A");
 								do_b();
 							});
 					}
@@ -287,67 +278,6 @@
 
 					<div id="addTo">test</div>
 
-					<!-- <script>
-						var total = "<table>";
-						
-						function updateEvents() {
-<<<<<<< HEAD
-
-							function do_a(callback) {
-
-								setTimeout(function() {
-									var query = firebase.database().ref("users").orderByKey();
-									query.once("value")
-										.then(function(snapshot) {
-											snapshot.forEach(function(childSnapshot) {
-
-												// var total = "<table>";
-												var childData = childSnapshot.val();
-
-												total += "<tr>";
-
-												total += "<td>";
-												total += "<b>" + childData['Company'] + "</b>" + "\n";
-												total += "<em>" + childData['Event'] + "</em>";
-												total += "<td>";
-
-												total += "<td>";
-												total += childData['Location'];
-												total += "</td>";
-
-												total += "<td>";
-												total += childData['Date'] + ", " + childData['Time'];
-												total += "</td>";
-
-												total += "<td>";
-												total += childData['Tags'];
-												total += "</td>";
-
-												total += "</tr>";
-											});
-										});
-
-									// if callback exist execute it
-									callback && callback();
-								}, 2000);
-								// total += "</table>";	
-							}
-							
-
-							function do_b() {
-								total += "</tables>";
-								// document.getElementById('eventList').innerHTML = total;
-								console.log("done b");
-							}
-
-							do_a(function() {
-								do_b();
-							});
-=======
->>>>>>> 7a237dafc780a73e18630346c016b5a9e1fccf9b
-						}
-					</script>
- -->
 					<footer class="major">
 						<ul class="actions">
 							<li><a href="#first" class="button">Change Location</a></li>
