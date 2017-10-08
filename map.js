@@ -1,5 +1,6 @@
 
 var map;
+var allMarkers = [];
 
 function initMap() {
 	var query = firebase.database().ref("users").orderByKey();
@@ -11,8 +12,11 @@ function initMap() {
       var key = childSnapshot.key;
       // childData will be the actual contents of the child
       var childData = childSnapshot.val();
-
-	  console.log(childData);
+      var data = '<h4>' + childData.Event + ' with ' + childData.Company +'</h4>' +
+          '<p>' + childData.Time + ' on ' + childData.Date + ' at ' + childData.Location + '</p><p><i>' + childData.Tags + '</i></p>';
+      allMarkers.push(data);
+      console.log(allMarkers.length + " psh");
+      
 	  //get lat and long from address
 	  geocoder.geocode({'address': childData.Location}, function(results, status) {
           if (status === 'OK') {
@@ -23,6 +27,7 @@ function initMap() {
             });
 			google.maps.event.addListener(marker, 'click', (function(marker, i) {
 				return function() {
+
 					infowindowContent = '<h4>' + childData.Event + ' with ' + childData.Company +'</h4>' +
 					'<p>' + childData.Time + ' at ' + childData.Location + '</p><p><i>' + childData.Tags + '</i></p>';
 					infowindow.setContent(infowindowContent);
