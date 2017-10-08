@@ -266,6 +266,7 @@
 					<ul class="actions">
 						<li>
 							<button id="addevent" class="button hide" style="display:none">Add an Event</button>
+							<button id="signout" class="button hide" style="display:none">Sign Out</button>
 						</li>
 					</ul>
 
@@ -297,6 +298,41 @@
 
 	<!--firebase script-->
 	<script>
+		function signinUser(email) {
+			//show user info
+			document.getElementById("addevent").style.display = "block";
+			document.getElementById("signout").style.display = "block";
+			document.getElementById("loggeduser").innerHTML = "Welcome, " + email;
+			document.getElementById("loggeduser").style.display = "block";
+
+			//hide login page
+			document.getElementById("email").style.display = "none";
+			document.getElementById("labelemail").style.display = "none";
+			document.getElementById("password").style.display = "none";
+			document.getElementById("labelpassword").style.display = "none";
+			document.getElementById("register").style.display = "none";
+			document.getElementById("signin").style.display = "none";
+		}
+
+		function signoutUser() {
+
+			//hide user info
+			document.getElementById("addevent").style.display = "none";
+			document.getElementById("signout").style.display = "none";
+			document.getElementById("loggeduser").style.display = "none";
+
+			//show login page
+			document.getElementById("logininfo").style.display = "block";
+			document.getElementById("email").style.display = "block";
+			document.getElementById("email").value = '';
+			document.getElementById("labelemail").style.display = "block";
+			document.getElementById("password").style.display = "block";
+			document.getElementById("password").value = '';
+			document.getElementById("labelpassword").style.display = "block";
+			document.getElementById("register").style.display = "block";
+			document.getElementById("signin").style.display = "block";
+		}
+
 		var createAccount = function(email, password) {
 			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
 				// Handle Errors here.
@@ -331,19 +367,18 @@
 			if (errorCode == "") {
 				alert("Welcome back.");
 
-				document.getElementById("addevent").style.display = "block";
-
-				document.getElementById("logininfo").style.display = "none";
-				document.getElementById("email").style.display = "none";
-				document.getElementById("labelemail").style.display = "none";
-				document.getElementById("password").style.display = "none";
-				document.getElementById("labelpassword").style.display = "none";
-				document.getElementById("register").style.display = "none";
-				document.getElementById("signin").style.display = "none";
-
-				document.getElementById("loggeduser").innerHTML = "Welcome, " + email;
-				document.getElementById("loggeduser").style.display = "block";
+				signinUser(email);
 			}
+		}
+
+		var signout = function() {
+
+			firebase.auth().signOut().then(function() {
+				// Sign-out successful.
+				signoutUser();
+			}).catch(function(error) {
+				alert("Sign out failed.");
+			});
 		}
 
 		firebase.auth().onAuthStateChanged(function(user) {
@@ -374,6 +409,10 @@
 				} else {
 					alert("Please fill in both fields before logging in!");
 				}
+			});
+			$("#signout").click(function(e) {
+				e.preventDefault();
+				signout();
 			});
 		});
 	</script>
