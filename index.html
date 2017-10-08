@@ -382,15 +382,24 @@
 		}
 
 		var createAccount = function(email, password) {
+
+			var errorCode = "";
+
 			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
 				// Handle Errors here.
-				var errorCode = error.code;
+				errorCode = error.code;
 				var errorMessage = error.message;
 				console.error(errorCode, errorMessage)
 
 				if (errorCode == "auth/invalid-email")
 					alert("Invalid email format.");
 			});
+
+			if (errorCode == ""){
+				alert("Welcome!");
+
+				signinUser(email);
+			}
 		}
 
 		var signin = function(email, password) {
