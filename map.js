@@ -16,18 +16,12 @@ function initMap() {
           '<p>' + childData.Time + ' on ' + childData.Date + ' at ' + childData.Location + '</p><p><i>' + childData.Tags + '</i></p>';
       allMarkers.push(data);
       // console.log(allMarkers.length + " psh");
-      
-<<<<<<< HEAD
-=======
-=======
 			
       var data = '<h4>' + childData.Event + ' with ' + childData.Company +'</h4>' +
           '<p>' + childData.Time + ' on ' + childData.Date + ' at ' + childData.Location + '</p><p><i>' + childData.Tags + '</i></p>';
       allMarkers.push(data);
-      console.log(allMarkers.length + " psh");
+      // console.log(allMarkers.length + " psh");
 
->>>>>>> 343335a76b95274fa582a410e4d7a37c106a9c6a
->>>>>>> a0a82ec4eacec65dfaf979ca45a8c32bb2317ad0
 	  //get lat and long from address
 	  geocoder.geocode({'address': childData.Location}, function(results, status) {
           if (status === 'OK') {
