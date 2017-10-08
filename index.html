@@ -179,7 +179,7 @@
 							anchorPoint: new google.maps.Point(0, -29)
 						});
 
-						autocomplete.addListener('place_changed', (function() {
+						autocomplete.addListener('place_changed', function() {
 							marker.setVisible(false);
 							var place = autocomplete.getPlace();
 
@@ -199,6 +199,9 @@
 							marker.setVisible(true);
 						} ;
 					}
+<<<<<<< HEAD
+					
+=======
 
 
 					marker.setVisible(false);
@@ -220,6 +223,7 @@
 					marker.setVisible(true);
 					});
 					}
+>>>>>>> ca9f953e02bd524065fc7675db72fb8ffe83eb59
 				</script>
 				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3o57G1olSN-zpVPmq34BfcGqRVBEXZ3M&libraries=places&callback=initMap" async defer></script>
 			</section>
@@ -237,45 +241,17 @@
 						query.once("value")
 						  .then(function(snapshot) {
 						    snapshot.forEach(function(childSnapshot) {
-
-						      // key will be "ada" the first time and "alan" the second time
-						      var key = childSnapshot.key;
-
-						      // childData will be the actual contents of the child
-						      var childData = childSnapshot.val();
-
-						      // for each(var item in )
+						    		childSnapshot.forEach(function(childSnapshot2){
+						    			      // key will be "ada" the first time and "alan" the second time
+									      var key = childSnapshot2.key;
+									      	console.log(key);
+									      // childData will be the actual contents of the child
+									      var childData = childSnapshot2.val();
+									      console.log(childData);
+						    		});
+						
 						  });
 						});
-							.then(function(snapshot) {
-								snapshot.forEach(function(childSnapshot) {
-
-									//   	var query2 = firebase.database().ref(childSnapshot.key).orderByKey();
-									// query2.once("value")
-									//   .then(function(snapshot2) {
-									//     snapshot2.forEach(function(childSnapshot2) {
-
-
-									//       // key will be "ada" the first time and "alan" the second time
-									//       var key2 = childSnapshot2.key;
-									//       console.log(key2);
-									//       // childData will be the actual contents of the child
-									//       var childData = childSnapshot.val();
-									//       // console.log(childData);
-									//   });
-									// });
-
-									// key will be "ada" the first time and "alan" the second time
-									var key = childSnapshot.key;
-									// console.log(key);
-									// childData will be the actual contents of the child
-									var childData = childSnapshot.val();
-
-									console.log(childData);
-
-									// console.log(childData);
-								});
-							});
 					</script>
 
 					<footer class="major">
