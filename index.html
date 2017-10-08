@@ -199,7 +199,31 @@
 							marker.setVisible(true);
 						});
 					}
+<<<<<<< HEAD
 					
+=======
+
+
+					marker.setVisible(false);
+					var place = autocomplete.getPlace();
+
+					if (!place.geometry) {
+						window.alert("No details available for input: '" + place.name + "'");
+						return;
+					}
+
+					// If the place has a geometry, then present it on a map.
+					if (place.geometry.viewport) {
+						map.fitBounds(place.geometry.viewport);
+					} else {
+						map.setCenter(place.geometry.location);
+						map.setZoom(17); // Why 17? Because it looks good.
+					}
+					marker.setPosition(place.geometry.location);
+					marker.setVisible(true);
+					});
+					}
+>>>>>>> ca9f953e02bd524065fc7675db72fb8ffe83eb59
 				</script>
 				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3o57G1olSN-zpVPmq34BfcGqRVBEXZ3M&libraries=places&callback=initMap" async defer></script>
 			</section>
@@ -232,7 +256,7 @@
 
 					<footer class="major">
 						<ul class="actions">
-							<li><a href="about.html" class="button">Learn More</a></li>
+							<li><a href="#first" class="button">Change Location</a></li>
 						</ul>
 					</footer>
 			</section>
