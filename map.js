@@ -12,11 +12,20 @@ function initMap() {
       var key = childSnapshot.key;
       // childData will be the actual contents of the child
       var childData = childSnapshot.val();
+<<<<<<< HEAD
       var data = '<h4>' + childData.Event + ' with ' + childData.Company +'</h4>' +
           '<p>' + childData.Time + ' on ' + childData.Date + ' at ' + childData.Location + '</p><p><i>' + childData.Tags + '</i></p>';
       allMarkers.push(data);
       // console.log(allMarkers.length + " psh");
       
+=======
+			
+      var data = '<h4>' + childData.Event + ' with ' + childData.Company +'</h4>' +
+          '<p>' + childData.Time + ' on ' + childData.Date + ' at ' + childData.Location + '</p><p><i>' + childData.Tags + '</i></p>';
+      allMarkers.push(data);
+      console.log(allMarkers.length + " psh");
+
+>>>>>>> 343335a76b95274fa582a410e4d7a37c106a9c6a
 	  //get lat and long from address
 	  geocoder.geocode({'address': childData.Location}, function(results, status) {
           if (status === 'OK') {
@@ -45,7 +54,7 @@ function initMap() {
 							zoom: 15,
 							center: new google.maps.LatLng(39.2556, -76.7110),
 							});
-							
+
 							if (navigator.geolocation) {
 								navigator.geolocation.getCurrentPosition(function(position) {
 									var pos = {
