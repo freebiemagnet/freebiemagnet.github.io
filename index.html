@@ -197,13 +197,10 @@
 							}
 							marker.setPosition(place.geometry.location);
 							marker.setVisible(true);
-<<<<<<< HEAD
-						}) )  ;
-=======
 						});
-					} ===
-					===
-					=
+					}
+					
+					
 					marker.setVisible(false);
 					var place = autocomplete.getPlace();
 
@@ -218,15 +215,11 @@
 					} else {
 						map.setCenter(place.geometry.location);
 						map.setZoom(17); // Why 17? Because it looks good.
->>>>>>> dcf8fc017ec2342c5cb61571ca4a60a28812e84d
 					}
 					marker.setPosition(place.geometry.location);
 					marker.setVisible(true);
 					});
-					} >>>
-					>>>
-					>
-					393818 d36a9d08daeaaa0c22c1700194a4b98d45
+					}
 				</script>
 				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3o57G1olSN-zpVPmq34BfcGqRVBEXZ3M&libraries=places&callback=initMap" async defer></script>
 			</section>
@@ -242,7 +235,6 @@
 					<script>
 						var query = firebase.database().ref("all users").orderByKey();
 						query.once("value")
-<<<<<<< HEAD
 						  .then(function(snapshot) {
 						    snapshot.forEach(function(childSnapshot) {
 
@@ -255,7 +247,6 @@
 						      // for each(var item in )
 						  });
 						});
-=======
 							.then(function(snapshot) {
 								snapshot.forEach(function(childSnapshot) {
 
@@ -285,7 +276,6 @@
 									// console.log(childData);
 								});
 							});
->>>>>>> dcf8fc017ec2342c5cb61571ca4a60a28812e84d
 					</script>
 
 					<footer class="major">
