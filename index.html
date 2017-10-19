@@ -506,7 +506,8 @@
 
 		firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
-				console.log(user);
+				//console.log(user);
+				console.log("user signed in");
 			} else {
 				console.error("No user signed in");
 			}
