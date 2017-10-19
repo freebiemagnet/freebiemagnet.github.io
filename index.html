@@ -224,7 +224,6 @@
 				<script>
 					function updateEvents() {
 
-						console.log("all marker " + allMarkers.length);
 						var unique = [];
 						for (var i = 0; i < allMarkers.length; i++) {
 							if (!unique.includes(allMarkers[i]))
@@ -234,7 +233,6 @@
 						var tableText = "<table>";
 
 						do_a(function() {
-							console.log("did A");
 							do_b();
 						});
 
@@ -259,19 +257,19 @@
 									var tags = unique[i].substring(unique[i].indexOf("<i>") + 3, unique[i].indexOf("</i>"));*/
 
 									var company = unique[i].substring(0, unique[i].indexOf('|'));
-									unique[i] = unique[i].substring(unique[i].indexOf('|')+1);
+									unique[i] = unique[i].substring(unique[i].indexOf('|') + 1);
 
 									var event = unique[i].substring(0, unique[i].indexOf('|'));
-									unique[i] = unique[i].substring(unique[i].indexOf('|')+1);
+									unique[i] = unique[i].substring(unique[i].indexOf('|') + 1);
 
 									var location = unique[i].substring(0, unique[i].indexOf('|'));
-									unique[i] = unique[i].substring(unique[i].indexOf('|')+1);
+									unique[i] = unique[i].substring(unique[i].indexOf('|') + 1);
 
 									var date = unique[i].substring(0, unique[i].indexOf('|'));
-									unique[i] = unique[i].substring(unique[i].indexOf('|')+1);
+									unique[i] = unique[i].substring(unique[i].indexOf('|') + 1);
 
 									var time = unique[i].substring(0, unique[i].indexOf('|'));
-									unique[i] = unique[i].substring(unique[i].indexOf('|')+1);
+									unique[i] = unique[i].substring(unique[i].indexOf('|') + 1);
 
 									var tags = unique[i].substring(0, unique[i].indexOf('|'));
 
@@ -296,7 +294,6 @@
 						}
 
 						function do_b() {
-							console.log("did B");
 							document.getElementById("addTo").innerHTML = tableText + "</table";
 						}
 					}
@@ -398,7 +395,7 @@
 			//hide login page
 			document.getElementById("email").style.display = "none";
 			document.getElementById("password").style.display = "none";
-			document.getElementById("register").style.display = "none";
+			//document.getElementById("register").style.display = "none";
 			document.getElementById("signin").style.display = "none";
 		}
 
@@ -416,7 +413,7 @@
 			document.getElementById("email").value = '';
 			document.getElementById("password").style.display = "block";
 			document.getElementById("password").value = '';
-			document.getElementById("register").style.display = "block";
+			//document.getElementById("register").style.display = "block";
 			document.getElementById("signin").style.display = "block";
 		}
 
@@ -458,14 +455,13 @@
 
 				else if (errorCode != "")
 					alert("Either the username or password is incorrect.");
+
+			}).then(function() {
+				if (errorCode == "") {
+					alert("Welcome back.");
+					signinUser(email);
+				}
 			});
-
-			//if logged in with no error codes
-			if (errorCode == "") {
-				alert("Welcome back.");
-
-				signinUser(email);
-			}
 		}
 
 		var signout = function() {
@@ -474,6 +470,7 @@
 				// Sign-out successful.
 				signoutUser();
 			}).catch(function(error) {
+				alert(error);
 				alert("Sign out failed.");
 			});
 		}
