@@ -193,7 +193,6 @@
 
 							initMap();
 
-							var place = autocomplete.getPlace();
 							marker.setVisible(false);
 							var place = autocomplete.getPlace();
 
@@ -211,8 +210,6 @@
 							}
 							marker.setPosition(place.geometry.location);
 							marker.setVisible(true);
-
-							updateMapManual();
 						});
 					}
 				</script>
