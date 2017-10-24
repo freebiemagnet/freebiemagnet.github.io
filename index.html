@@ -245,16 +245,6 @@
 
 								for (var i = 0; i < unique.length; i++) {
 
-									/*var event = unique[i].substring(4, unique[i].indexOf("<p>") - 5);
-									unique[i] = unique[i].substring(unique[i].indexOf("with") + 5);
-
-									var company = unique[i].substring(0, unique[i].indexOf("</h4>"));
-
-									var time = unique[i].substring(0, unique[i].indexOf("on") - 1);
-									var date = unique[i].substring(unique[i].indexOf("on") + 3, unique[i].indexOf("at") - 1);
-									var location = unique[i].substring(unique[i].indexOf("at") + 3, unique[i].indexOf("</p>"));
-									var tags = unique[i].substring(unique[i].indexOf("<i>") + 3, unique[i].indexOf("</i>"));*/
-
 									var company = unique[i].substring(0, unique[i].indexOf('|'));
 									unique[i] = unique[i].substring(unique[i].indexOf('|') + 1);
 
@@ -293,7 +283,7 @@
 						}
 
 						function do_b() {
-							document.getElementById("addTo").innerHTML = tableText + "</table";
+							document.getElementById("addTo").innerHTML = tableText + "</table>";
 						}
 					}
 				</script>
